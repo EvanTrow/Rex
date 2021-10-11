@@ -3,7 +3,7 @@ A request tool for Plex.
 
 
 
-# Required Environment Variables (.env
+# Required Environment Variables (.env)
 
 PLEX_URI=http://xxx.xxx.xxx.xxx:32400
 PLEX_TOKEN=xxxxxxxxxxxxxxxxxxxxx
