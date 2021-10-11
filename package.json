@@ -1,0 +1,65 @@
+{
+	"name": "plex-request",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@emotion/react": "^11.4.1",
+		"@emotion/styled": "^11.3.0",
+		"@mui/icons-material": "^5.0.1",
+		"@mui/lab": "^5.0.0-alpha.49",
+		"@mui/material": "^5.0.2",
+		"@mui/styles": "^5.0.1",
+		"@testing-library/jest-dom": "^5.14.1",
+		"@testing-library/react": "^11.2.7",
+		"@testing-library/user-event": "^12.8.3",
+		"axios": "^0.21.4",
+		"body-parser": "^1.19.0",
+		"clsx": "^1.1.1",
+		"concurrently": "^6.3.0",
+		"cors": "^2.8.5",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"firebase": "^8.6.8",
+		"firebase-admin": "^9.12.0",
+		"mongodb": "^4.1.2",
+		"ngrok": "^4.2.2",
+		"nodemon": "^2.0.13",
+		"path": "^0.12.7",
+		"react": "^17.0.2",
+		"react-cookie": "^4.1.1",
+		"react-device-detect": "^1.17.0",
+		"react-dom": "^17.0.2",
+		"react-extensions": "^1.0.10",
+		"react-material-ui-carousel": "^2.3.7-mui5",
+		"react-multi-carousel": "^2.6.5",
+		"react-router-dom": "^5.3.0",
+		"react-scripts": "4.0.3",
+		"web-vitals": "^1.1.2"
+	},
+	"scripts": {
+		"start": "node index.js",
+		"dev": "concurrently \"nodemon index.js\" \"react-scripts start\" \"nodemon ngrok.js\"",
+		"build": "react-scripts build",
+		"eject": "react-scripts eject",
+		"test": "react-scripts start"
+	},
+	"proxy": "http://localhost:8080",
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	}
+}

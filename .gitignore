@@ -71,6 +71,7 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+plex-request-8ac22-firebase-adminsdk-dls3x-2146e489a1.json
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
