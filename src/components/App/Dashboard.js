@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
+import moment from 'moment';
+import momentDurationFormatSetup from 'moment-duration-format';
+
 import { Link } from 'react-router-dom';
 
 import { firebaseAuth } from '../../firebase/constants';
@@ -22,8 +25,16 @@ import CardMedia from '@mui/material/CardMedia';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+
+momentDurationFormatSetup(moment);
 
 // import WarningIcon from '@mui/icons-material/Warning';
 
@@ -48,8 +59,9 @@ class Landing extends React.Component {
 			loading: true,
 
 			libraries: [],
+
+			selected: null,
 		};
-		props.setTitle('Dashboard');
 	}
 
 	componentDidMount() {
@@ -115,6 +127,36 @@ class Landing extends React.Component {
 			});
 	};
 
+	Item = (props) => {
+		return (
+			<Card Button sx={{ maxWidth: 167 }} onClick={() => this.setState({ selected: props })}>
+				<ButtonBase
+					style={{
+						display: 'block',
+						textAlign: 'initial',
+					}}
+				>
+					<div sx={{ position: 'relative' }}>
+						{/* {(props.rating || props.audienceRating) && (
+							<Avatar sx={{ width: 24, height: 24, fontSize: '0.9rem', position: 'absolute', top: 223, right: 16 }}>{props.rating || props.audienceRating}</Avatar>
+						)} */}
+						<CardMedia component='img' height='250' image={`/api/plex/media?url=${props.thumb}`} alt={props.title} />
+					</div>
+					<CardContent>
+						{props.parentTitle && (
+							<Typography noWrap variant='body2'>
+								{props.parentTitle}
+							</Typography>
+						)}
+						<Typography noWrap variant='body2' color='text.secondary'>
+							{props.title}
+						</Typography>
+					</CardContent>{' '}
+				</ButtonBase>
+			</Card>
+		);
+	};
+
 	render() {
 		console.log((window.innerWidth - 250) / 200);
 
@@ -162,7 +204,7 @@ class Landing extends React.Component {
 										swipeable
 									>
 										{this.state?.['library-' + key]?.map((i) => (
-											<Item {...i} />
+											<this.Item {...i} />
 										))}
 									</Carousel>
 								) : (
@@ -172,39 +214,39 @@ class Landing extends React.Component {
 						))}
 					</Grid>
 				)}
+
+				<Dialog open={this.state.selected} scroll='body' onClose={() => this.setState({ selected: null })}>
+					<Card>
+						<CardMedia
+							component='img'
+							height='250'
+							image={this.state.selected ? `/api/plex/media?url=${this.state.selected?.art || this.state.selected?.thumb}` : null}
+							alt={this.state.selected?.title}
+						/>
+						<CardContent>
+							<Typography gutterBottom variant='h5' component='div' gutterBottom>
+								{this.state.selected?.title}
+								<Typography color='text.secondary'>
+									{this.state.selected?.originallyAvailableAt
+										? moment(this.state.selected?.originallyAvailableAt).format('YYYY')
+										: moment.unix(this.state.selected?.addedAt).format('MM/DD/YYYY')}{' '}
+									— {moment.duration(this.state.selected?.duration / 1000 || 0, 'seconds').format('h [hr] m [min]')}
+								</Typography>
+							</Typography>
+							<Typography variant='body2' gutterBottom>
+								{this.state.selected?.summary}
+							</Typography>
+						</CardContent>
+						<CardActions sx={{ float: 'right' }}>
+							<Button size='small' onClick={() => this.setState({ selected: null })}>
+								Close
+							</Button>
+						</CardActions>
+					</Card>
+				</Dialog>
 			</div>
 		);
 	}
 }
 
 export default Landing;
-
-function Item(props) {
-	return (
-		<Card Button sx={{ maxWidth: 167 }}>
-			<ButtonBase
-				style={{
-					display: 'block',
-					textAlign: 'initial',
-				}}
-			>
-				<div sx={{ position: 'relative' }}>
-					{/* {(props.rating || props.audienceRating) && (
-						<Avatar sx={{ width: 24, height: 24, fontSize: '0.9rem', position: 'absolute', top: 223, right: 16 }}>{props.rating || props.audienceRating}</Avatar>
-					)} */}
-					<CardMedia component='img' height='250' image={`/api/plex/media?url=${props.thumb}`} alt={props.title} />
-				</div>
-				<CardContent>
-					{props.parentTitle && (
-						<Typography noWrap variant='body2'>
-							{props.parentTitle}
-						</Typography>
-					)}
-					<Typography noWrap variant='body2' color='text.secondary'>
-						{props.title}
-					</Typography>
-				</CardContent>{' '}
-			</ButtonBase>
-		</Card>
-	);
-}

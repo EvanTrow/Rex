@@ -111,6 +111,10 @@ async function start(db) {
 	api.get('/api/plex/recent/:library', Plex.getRecent);
 	api.get('/api/plex/media', Plex.getMedia);
 
+	// MovieDb
+	var MovieDb = require('./controllers/MovieDb')(null, db);
+	api.get('/api/moviedb/trending', MovieDb.getTrending);
+
 	// // Config Controller
 	// var Config_controller = require('./controllers/config')(null);
 	// api.get('/config.js', Config_controller.generate);

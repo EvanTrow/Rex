@@ -20,9 +20,9 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NavLinks from './NavLinks';
 import NavMobile from './NavMobile';
 
-// gift
+// app
 import Dashboard from './Dashboard';
-// import Items from './Items/Items';
+import MediaDB from './mediaDB/MediaDB';
 
 // import Lists from './Lists/Lists';
 // import List from './Lists/List/Items';
@@ -189,7 +189,7 @@ class Main extends Component {
 							</IconButton>
 						)}
 						<Typography component={Link} to='/' variant='h6' color='inherit' noWrap className={classes.title}>
-							{title}
+							{getTitle(this.props.location.pathname)}
 						</Typography>
 					</Toolbar>
 				</AppBar>
@@ -215,7 +215,8 @@ class Main extends Component {
 					{/* <div className={classes.appBarSpacer} /> */}
 					<div style={{ paddingBottom: isMobile ? 64 : 0 }}>
 						<Switch>
-							<Route exact path='/app' component={(props) => <Dashboard {...props} setTitle={() => {}} isMobile={isMobile} />} />
+							<Route exact path='/app' component={(props) => <Dashboard {...props} />} />
+							<Route exact path='/app/db' component={(props) => <MediaDB {...props} />} />
 						</Switch>
 					</div>
 					{isMobile && <NavMobile />}
@@ -225,3 +226,22 @@ class Main extends Component {
 	}
 }
 export default withCookies(withStyles(styles, { withTheme: true })(Main));
+
+function getTitle(url) {
+	switch (url) {
+		case '/app':
+			return 'Dashboard';
+		case '/app/db':
+			return 'Media DB';
+		case '/app/db/movies':
+			return 'Movies';
+		case '/app/db/tv':
+			return 'TV Shows';
+		case '/app/requests':
+			return 'My Requests';
+
+		default:
+			return 'Rex';
+			break;
+	}
+}

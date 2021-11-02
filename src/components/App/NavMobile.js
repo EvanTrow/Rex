@@ -6,6 +6,11 @@ import { makeStyles } from '@mui/styles';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 
+import DashboardIcon from '@mui/icons-material/Dashboard';
+
+import MovieIcon from '@mui/icons-material/Movie';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
+
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import GroupIcon from '@mui/icons-material/Group';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -33,19 +38,19 @@ export default function SimpleBottomNavigation() {
 				setValue(newValue);
 				switch (newValue) {
 					case 0:
-						history.push('/gift/items');
+						history.push('/app/db/movies');
 						break;
 					case 1:
-						history.push('/gift/lists');
+						history.push('/app/db/tv');
 						break;
 					case 2:
-						history.push('/gift/groups');
+						history.push('/app');
 						break;
 					case 3:
-						history.push('/gift/shopping');
+						history.push('/app/requests');
 						break;
 					case 4:
-						history.push('/gift/me');
+						history.push('/app/me');
 						break;
 
 					default:
@@ -55,10 +60,10 @@ export default function SimpleBottomNavigation() {
 			showLabels
 			className={classes.root}
 		>
-			<BottomNavigationAction label='Items' icon={<i className='fas fa-gift' style={{ fontSize: '1.19rem' }} />} />
-			<BottomNavigationAction label='Lists' icon={<ListAltIcon />} />
-			<BottomNavigationAction label='Groups' icon={<GroupIcon />} />
-			<BottomNavigationAction label='Shopping' icon={<ShoppingCartIcon />} />
+			<BottomNavigationAction label='Movies' icon={<MovieIcon />} />
+			<BottomNavigationAction label='Shows' icon={<LiveTvIcon />} />
+			<BottomNavigationAction label='Dashboard' icon={<DashboardIcon />} />
+			<BottomNavigationAction label='Requests' icon={<ListAltIcon />} />
 			<BottomNavigationAction label='Account' icon={<AccountCircleIcon />} />
 		</BottomNavigation>
 	);
@@ -66,15 +71,15 @@ export default function SimpleBottomNavigation() {
 
 function getLocation(path) {
 	// console.log(path);
-	if (path.startsWith('/gift/item')) {
+	if (path.startsWith('/app/db/movies')) {
 		return 0;
-	} else if (path.startsWith('/gift/list')) {
+	} else if (path.startsWith('/app/db/tv')) {
 		return 1;
-	} else if (path.startsWith('/gift/group')) {
+	} else if (path.startsWith('/app')) {
 		return 2;
-	} else if (path.startsWith('/gift/shopping')) {
+	} else if (path.startsWith('/app/requests')) {
 		return 3;
-	} else if (path.startsWith('/gift/me')) {
+	} else if (path.startsWith('/app/me')) {
 		return 4;
 	} else {
 		return -1;

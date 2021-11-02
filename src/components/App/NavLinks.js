@@ -5,14 +5,20 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import Avatar from '@mui/material/Avatar';
 
+import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListSubheader from '@mui/material/ListSubheader';
+import Collapse from '@mui/material/Collapse';
+
 import Divider from '@mui/material/Divider';
 
-import NewReleasesIcon from '@mui/icons-material/NewReleases';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import MovieIcon from '@mui/icons-material/Movie';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
+
 import ListAltIcon from '@mui/icons-material/ListAlt';
 // import GroupIcon from '@mui/icons-material/Group';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -102,37 +108,47 @@ class navMenu extends React.Component {
 					<ListItemText primary={this.state.user && this.state.user.displayName} secondary={this.state.user && this.state.user.email} />
 				</ListItem>
 				<Divider />
-				<ListItem component={Link} to='/gift' button selected={this.props.location.pathname === '/gift'}>
+				<ListItem component={Link} to='/app' button selected={this.props.location.pathname === '/app'}>
 					<ListItemIcon>
-						<NewReleasesIcon color={this.props.location.pathname === '/gift' ? 'primary' : 'inherit'} />
+						<DashboardIcon color={this.props.location.pathname === '/app' ? 'primary' : 'inherit'} />
 					</ListItemIcon>
-					<ListItemText primary="What's New" />
+					<ListItemText primary='Dashboard' />
 				</ListItem>
-				<ListItem component={Link} to='/gift/items' button selected={this.props.location.pathname.startsWith('/gift/items')}>
+				<ListItem component={Link} to='/app/db' button selected={this.props.location.pathname === '/app/db'}>
 					<ListItemIcon>
-						<i className='fas fa-gift' style={{ fontSize: '1.19rem', marginLeft: 2, color: this.props.location.pathname.startsWith('/gift/items') ? '#4caf50' : 'inherit' }} />
+						<i className='fas fa-search' style={{ fontSize: '1.19rem', marginLeft: 2, color: this.props.location.pathname === '/app/db' ? '#e5a00d' : 'inherit' }} />
 					</ListItemIcon>
-					<ListItemText primary='Items' />
+					<ListItemText primary='Media DB' />
 				</ListItem>
-				<ListItem component={Link} to='/gift/lists' button selected={this.props.location.pathname.startsWith('/gift/list')}>
-					<ListItemIcon>
-						<ListAltIcon color={this.props.location.pathname.startsWith('/gift/list') ? 'primary' : 'inherit'} />
-					</ListItemIcon>
-					<ListItemText primary='Lists' />
-				</ListItem>
+				<Collapse in={true} timeout='auto' unmountOnExit>
+					<List component='div' disablePadding>
+						<ListItem component={Link} to={'/app/db/movies'} button selected={this.props.location.pathname === '/app/db/movies'} style={{ paddingLeft: 32 }}>
+							<ListItemIcon>
+								<MovieIcon color={this.props.location.pathname === '/app/db/movies' ? 'primary' : 'inherit'} />
+							</ListItemIcon>
+							<ListItemText primary={'Movies'} />
+						</ListItem>
+						<ListItem component={Link} to={'/app/db/tv'} button selected={this.props.location.pathname === '/app/db/tv'} style={{ paddingLeft: 32 }}>
+							<ListItemIcon>
+								<LiveTvIcon color={this.props.location.pathname === '/app/db/tv' ? 'primary' : 'inherit'} />
+							</ListItemIcon>
+							<ListItemText primary={'TV Shows'} />
+						</ListItem>
+					</List>
+				</Collapse>
 
-				<ListItem component={Link} to='/gift/shopping' button selected={this.props.location.pathname.startsWith('/gift/shopping')}>
+				<ListItem component={Link} to='/app/requests' button selected={this.props.location.pathname.startsWith('/app/requests')}>
 					<ListItemIcon>
-						<ShoppingCartIcon color={this.props.location.pathname.startsWith('/gift/shopping') ? 'primary' : 'inherit'} />
+						<ListAltIcon color={this.props.location.pathname.startsWith('/app/requests') ? 'primary' : 'inherit'} />
 					</ListItemIcon>
-					<ListItemText primary='Shopping List' />
+					<ListItemText primary='My Requests' />
 				</ListItem>
 
 				<Divider />
 				<ListSubheader inset>Account</ListSubheader>
-				<ListItem component={Link} to='/gift/me' button selected={this.props.location.pathname.startsWith('/gift/me')}>
+				<ListItem component={Link} to='/app/me' button selected={this.props.location.pathname.startsWith('/app/me')}>
 					<ListItemIcon>
-						<AccountCircleIcon color={this.props.location.pathname.startsWith('/gift/me') ? 'primary' : 'inherit'} />
+						<AccountCircleIcon color={this.props.location.pathname.startsWith('/app/me') ? 'primary' : 'inherit'} />
 					</ListItemIcon>
 					<ListItemText primary='My Account' />
 				</ListItem>

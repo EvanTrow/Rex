@@ -28,7 +28,7 @@ module.exports = function (e, db) {
 
 	module.getRecent = async (request, response, next) => {
 		try {
-			console.log(request.params, request.query, request.body);
+			// console.log(request.params, request.query, request.body);
 
 			axios
 				.get(
